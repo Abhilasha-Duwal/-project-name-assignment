@@ -8,18 +8,19 @@ import {
 import { toast } from "react-toastify";
 
 const TaskList = () => {
-  const { data: tasks} = useGetTasksQuery();
+  const { data: tasks } = useGetTasksQuery();
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
 
   console.log("data", tasks);
 
-  const updateCompleteTask = (task) => {
+  const updateCompleteTask = async (task) => {
     try {
-      updateTask({ ...task, completed: !task.completed });
+      // Update the task completed status in the backend
+      await updateTask({ id: task.id, completed: !task.completed });
       toast.success("Successfully updated the completed status.");
     } catch (error) {
-      toast.error("fail to update completed status.");
+      toast.error("Failed to update completed status.");
     }
   };
 
@@ -30,7 +31,7 @@ const TaskList = () => {
     );
 
     if (!confirmed) return; // If user cancels deletion, exit function;
-    
+
     try {
       deleteTask({ id: id });
       toast.success("Successfully deleted task.");
@@ -39,7 +40,7 @@ const TaskList = () => {
     }
   };
 
-  return(
+  return (
     <table>
       <thead>
         <tr>
@@ -51,6 +52,7 @@ const TaskList = () => {
       </thead>
       <tbody>
         {tasks?.map((task) => {
+          console.log(task.completed)
           return (
             <tr key={task.id}>
               <td>{task.id}</td>
