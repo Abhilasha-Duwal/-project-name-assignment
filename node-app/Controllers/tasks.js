@@ -6,7 +6,14 @@ const handleGetAllTasks = (connectDb) => (req, res) => {
       res.status(500).json({ error: "Internal server error" });
       return;
     }
-    res.json(rows);
+
+    // Convert completed values from numbers to booleans
+    const tasks = rows.map((task) => ({
+      ...task,
+      completed: task.completed === 1 ? true : false,
+    }));
+
+    res.json(tasks);
   });
 };
 
@@ -31,45 +38,40 @@ const handleCreateTask = (connectDb) => (req, res) => {
   });
 };
 
-const handleUpdateTaskCompletedByID = (connectDb) => (req, res) => {
+const handleUpdateTaskCompletedByID = (connectDb) => async (req, res) => {
   const taskId = req.params.taskId;
   let { completed } = req.body;
 
-  // Convert string "true" and "false" to 1 and 0 respectively
-  if (completed === true) {
-    completed = 1;
-  } else if (completed === false) {
-    completed = 0;
+  // Convert string "true" and "false" to boolean values
+  if (typeof completed === "string") {
+    completed = completed === "true";
   }
 
   // Validate the completion status
-  if (typeof completed !== "number" || (completed !== 0 && completed !== 1)) {
+  if (typeof completed !== "boolean") {
     return res.status(400).json({
-      error: "Invalid value for 'completed'. It must be either true or false.",
+      error:
+        "Invalid value for 'completed'. It must be either true, false, or a boolean value.",
     });
   }
 
-  // Convert completed value back to boolean
-  completed = !!completed;
+  try {
+    const sqlUpdate = "UPDATE tasks SET completed = ? WHERE id = ?";
+    await connectDb.run(sqlUpdate, [completed ? 1 : 0, taskId]);
 
-  const sqlUpdate = "UPDATE tasks SET completed = ? WHERE id = ?";
-  connectDb.run(sqlUpdate, [completed, taskId], function (error) {
-    if (error) {
-      console.error("Error updating task:", error.message);
-      res.status(500).json({ error: "Internal server error" });
-      return;
-    }
+    // Check if any rows were affected
     if (this.changes === 0) {
-      res.status(404).json({ error: "Task not found" });
-      return;
+      return res.status(404).json({ error: "Task not found" });
     }
-    // Convert boolean completed value to string "true" or "false"
-    const completedValue = completed ? true : false;
+
     res.json({
       message: "Task completion status updated successfully",
-      completed: completedValue,
+      completed: completed,
     });
-  });
+  } catch (error) {
+    console.error("Error updating task:", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 const handleDeleteById = (connectDb) => (req, res) => {
