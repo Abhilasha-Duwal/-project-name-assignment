@@ -1,0 +1,18 @@
+.tasklist-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  font-size: 35px;
+  font-weight: bolder;
+  justify-content: space-between;
+}
+.tasklist-title h1 {
+  width: 80%;
+}
+.addtask-btn {
+  width: 200px;
+  height: 50px;
+  background-color: rgb(37, 116, 22);
+  color: white;
+}

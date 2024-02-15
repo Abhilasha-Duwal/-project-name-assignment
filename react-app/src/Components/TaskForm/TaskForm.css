@@ -1,0 +1,22 @@
+.addnewtask form {
+  border: 1px solid black;
+  width: 60%;
+  margin: 30px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+.addnewtask input {
+  width: 100%;
+  height: 50px;
+}
+.addnewtask textarea {
+  width: 100%;
+  height: 150px;
+}
+.createtask-btn {
+  width: 200px;
+  height: 50px;
+}

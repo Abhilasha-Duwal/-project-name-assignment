@@ -1,0 +1,25 @@
+p{
+    margin: 0;
+}
+.small-txt{
+    font-size: 30px;
+}
+.title{
+    text-align: center;
+    margin: 0;
+}
+.container {
+    padding: 20px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+.btn{
+    border: none;
+    outline: none;
+    background-color: rgb(37, 116, 22);
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
