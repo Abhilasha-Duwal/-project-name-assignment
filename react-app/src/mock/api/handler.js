@@ -1,8 +1,9 @@
 import { rest } from "msw";
+import { baseUrl } from "../../config";
 
 export const handlers = [
   // Handler for GET method
-  rest.get("http://localhost:3500/tasks", (req, res, ctx) => {
+  rest.get(`${baseUrl}/tasks`, (req, res, ctx) => {
     // successful response
     return res(
       ctx.status(200),
@@ -31,7 +32,7 @@ export const handlers = [
   }),
 
   // Handler for POST method
-  rest.post("http://localhost:3500/tasks", async (req, res, ctx) => {
+  rest.post(`${baseUrl}/tasks`, async (req, res, ctx) => {
     const { title, description } = await req.json();
     // Return a successful response with the newly created task
     return res(
@@ -46,7 +47,7 @@ export const handlers = [
   }),
 
   // Handler for PATCH method (Partial Update)
-  rest.patch("http://localhost:3500/tasks/:id", async (req, res, ctx) => {
+  rest.patch(`${baseUrl}/tasks/:id`, async (req, res, ctx) => {
     const { id, title, description, completed } = await req.json();
 
     // Return a successful response with the updated task data
@@ -62,7 +63,7 @@ export const handlers = [
   }),
 
   // Handler for DELETE method
-  rest.delete("http://localhost:3500/tasks/:id", (req, res, ctx) => {
+  rest.delete(`${baseUrl}/tasks/:id`, (req, res, ctx) => {
     const { id } = req.params;
 
     // Return a successful response
