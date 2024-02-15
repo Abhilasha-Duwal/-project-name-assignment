@@ -47,7 +47,7 @@ export const handlers = [
   }),
 
   // Handler for PATCH method (Partial Update)
-  rest.patch(`${baseUrl}/tasks/:id`, async (req, res, ctx) => {
+  rest.patch(`${baseUrl}/tasks/:id/complete`, async (req, res, ctx) => {
     const { id, title, description, completed } = await req.json();
 
     // Return a successful response with the updated task data
