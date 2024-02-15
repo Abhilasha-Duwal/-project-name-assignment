@@ -20,3 +20,18 @@
   width: 200px;
   height: 50px;
 }
+
+
+/* Resposive style */
+@media(max-width:800px){
+  .addnewtask form{
+    width:100%;
+    padding:20px;
+  }
+}
+@media(max-width:390px){
+  .createtask-btn {
+    width: 100%;
+    height: 50px;
+  }
+}

@@ -16,3 +16,10 @@
   background-color: rgb(37, 116, 22);
   color: white;
 }
+
+/* Resposive style */
+@media(max-width:800px){
+  .tasklist-title {
+    flex-direction: column;
+  }
+}
