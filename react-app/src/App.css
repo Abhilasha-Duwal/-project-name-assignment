@@ -30,3 +30,11 @@ p {
     padding: 30px;
   }
 }
+@media (max-width: 480px){
+    .title{
+        font-size: 30px;
+    }
+    .btn{
+        font-size: 12px;
+    }
+}

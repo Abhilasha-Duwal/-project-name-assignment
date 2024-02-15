@@ -1,6 +1,6 @@
 import React from "react";
 import TaskList from "../Components/TaskTable/TaskList";
-import "./CSS/TaskList.css";
+import "./CSS/TaskHome.css";
 import { useNavigate } from "react-router-dom";
 import { useGetTasksQuery } from "../Redux/api/ApiSlice";
 import ErrorFetchingData from "../Components/ErrorFetchingData/ErrorFetchingData";

@@ -18,8 +18,15 @@
 }
 
 /* Resposive style */
-@media(max-width:800px){
+@media (max-width: 800px) {
   .tasklist-title {
     flex-direction: column;
+  }
+}
+@media (max-width: 480px) {
+  .addtask-btn {
+    font-size: 12px;
+    width: 100px;
+    height: 30px;
   }
 }
